@@ -21,6 +21,7 @@ builder.Services.AddScoped<ICategoria, CategoriaService>();
 builder.Services.AddScoped<IProducto, ProductoService>();
 builder.Services.AddScoped<ICliente, ClienteService>();
 builder.Services.AddScoped<IProveedor, ProveedorService>();
+builder.Services.AddScoped<IAjuste, AjusteService>();
 
 builder.Services.AddAutoMapper(typeof(InventarioMapper));
 

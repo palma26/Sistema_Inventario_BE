@@ -15,6 +15,7 @@ namespace Sistema_Inventario.Utilis
             CreateMap<Producto, ProductoDto>().ReverseMap();
             CreateMap<Cliente, ClienteDto>().ReverseMap();  
             CreateMap<Proveedor, ProveedorDto>().ReverseMap();
+            CreateMap<Ajuste, AjusteDto>().ReverseMap();
         }
     }
 }

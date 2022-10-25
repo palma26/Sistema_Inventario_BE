@@ -33,12 +33,29 @@ namespace Sistema_Inventario.Services
 
         public ICollection GetAjustes()
         {
-            throw new NotImplementedException();
+            var ajustes = (from a in db.Ajuste
+                           join b in db.Bodega on a.BodegaId equals b.Id
+                           join p in db.Producto on a.ProductoId equals p.Id
+                           where a.Estado == 1
+                           select new
+                           {
+                               Id = a.Id,
+                               tipo = a.TipoAjuste,
+                               cantidad = a.Cantidad,
+                               IdBodega = b.Id,
+                               descripcionBodega = b.Descripcion,
+                               IdProducto = p.Id,
+                               descripcionProducto = p.Descripcion,
+                           }).ToList();
+
+            return ajustes;
         }
 
         public bool UpdateAjuste(Ajuste ajuste)
         {
-            throw new NotImplementedException();
+            ajuste.Estado = 1;
+            db.Ajuste.Update(ajuste);
+            return db.SaveChanges() > 0;
         }
     }
 }

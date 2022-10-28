@@ -69,7 +69,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar empresas
-        [HttpPut("[action]")] 
+        [HttpPatch("[action]")] 
         public IActionResult UpdateEmpresa([FromBody] EmpresaDto empresaDto)
         {
             try
@@ -95,7 +95,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja una empresa
-        [HttpPut("[action]/{IdEmpresa}")]
+        [HttpPatch("[action]/{IdEmpresa}")]
         public IActionResult DeleteEmpresa(int IdEmpresa)
         {
             try

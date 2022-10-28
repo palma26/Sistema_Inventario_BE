@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema_Inventario.Context;
 
@@ -11,9 +12,10 @@ using Sistema_Inventario.Context;
 namespace Sistema_Inventario.Migrations
 {
     [DbContext(typeof(InventarioDbContext))]
-    partial class InventarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221028060334_agrando ajustes")]
+    partial class agrandoajustes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

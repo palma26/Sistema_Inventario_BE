@@ -70,7 +70,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar datos de proveedores
-        [HttpPut("[action]")]
+        [HttpPatch("[action]")]
         public IActionResult UpdateProveedor([FromBody] ProveedorDto proveedorDto)
         {
             try
@@ -96,7 +96,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja a proveedores
-        [HttpPut("[action]/{IdProveedor}")]
+        [HttpPatch("[action]/{IdProveedor}")]
         public IActionResult DeleteProveedor(int IdProveedor)
         {
             try

@@ -68,7 +68,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar datos de bodegas
-        [HttpPut("[action]")]
+        [HttpPatch("[action]")]
         public IActionResult UpdateBodega([FromBody] BodegaDto bodegaDto)
         {
             try
@@ -94,7 +94,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja una bodega 
-        [HttpPut("[action]/{IdBodega}")]
+        [HttpPatch("[action]/{IdBodega}")]
         public IActionResult DeleteBodega(int IdBodega)
         { 
             try

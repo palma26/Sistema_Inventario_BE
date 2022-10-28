@@ -68,7 +68,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar empresas
-        [HttpPut("[action]")]
+        [HttpPatch("[action]")]
         public IActionResult UpdateSucursal([FromBody] SucursalDto sucursalDto)
         {
             try
@@ -94,7 +94,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja una sucursal 
-        [HttpPut("[action]/{IdSucursal}")]
+        [HttpPatch("[action]/{IdSucursal}")]
         public IActionResult DeleteSucursal(int IdSucursal)
         {
             try

@@ -69,7 +69,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar datos de los clientes
-        [HttpPut("[action]")]
+        [HttpPatch("[action]")]
         public IActionResult UpdateCliente([FromBody] ClienteDto clienteDto)
         {
             try
@@ -94,7 +94,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja a clientes
-        [HttpPut("[action]/{IdCliente}")]
+        [HttpPatch("[action]/{IdCliente}")]
         public IActionResult DeleteCliente(int IdCliente)
         {
             try

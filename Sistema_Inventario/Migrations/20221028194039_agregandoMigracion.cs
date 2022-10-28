@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sistema_Inventario.Migrations
 {
-    public partial class MigracionesAct : Migration
+    public partial class agregandoMigracion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +31,7 @@ namespace Sistema_Inventario.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Nit = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -63,11 +64,26 @@ namespace Sistema_Inventario.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Nit = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Proveedor", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rol",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rol", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,6 +142,7 @@ namespace Sistema_Inventario.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Direccion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: true),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -136,6 +153,29 @@ namespace Sistema_Inventario.Migrations
                         name: "FK_Sucursal_Empresa_EmpresaId",
                         column: x => x.EmpresaId,
                         principalTable: "Empresa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuario",
+                columns: table => new
+                {
+                    User = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Emial = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<byte>(type: "tinyint", nullable: true),
+                    PasswordSalt = table.Column<byte>(type: "tinyint", nullable: true),
+                    IdRol = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuario", x => x.User);
+                    table.ForeignKey(
+                        name: "FK_Usuario_Rol_IdRol",
+                        column: x => x.IdRol,
+                        principalTable: "Rol",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -199,6 +239,7 @@ namespace Sistema_Inventario.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TipoAjuste = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     BodegaId = table.Column<int>(type: "int", nullable: false),
                     ProductoId = table.Column<int>(type: "int", nullable: false)
@@ -432,6 +473,11 @@ namespace Sistema_Inventario.Migrations
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Usuario_IdRol",
+                table: "Usuario",
+                column: "IdRol");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Venta_ClienteId",
                 table: "Venta",
                 column: "ClienteId");
@@ -463,6 +509,9 @@ namespace Sistema_Inventario.Migrations
                 name: "NotaDebito");
 
             migrationBuilder.DropTable(
+                name: "Usuario");
+
+            migrationBuilder.DropTable(
                 name: "Compra");
 
             migrationBuilder.DropTable(
@@ -470,6 +519,9 @@ namespace Sistema_Inventario.Migrations
 
             migrationBuilder.DropTable(
                 name: "Venta");
+
+            migrationBuilder.DropTable(
+                name: "Rol");
 
             migrationBuilder.DropTable(
                 name: "Bodega");

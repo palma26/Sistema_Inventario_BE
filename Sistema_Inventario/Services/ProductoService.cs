@@ -14,8 +14,14 @@ namespace Sistema_Inventario.Services
         }
         public bool AddProducto(Producto producto)
         {
-            producto.Estado = 1;
-            db.Producto.Add(producto);
+            Existencia existencia = new Existencia();
+
+           db.Producto.Add(producto);
+
+            existencia.Cantidad = 0;
+            existencia.ProductoId = producto.Id;
+
+            db.Existencia.Add(existencia);
             return db.SaveChanges() > 0;
         }
 

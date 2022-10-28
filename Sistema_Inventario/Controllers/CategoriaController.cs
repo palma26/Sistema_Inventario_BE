@@ -70,7 +70,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar categorias
-        [HttpPut("[action]")]
+        [HttpPatch("[action]")]
         public IActionResult UpdateCategoria([FromBody] CategoriaDto categoriaDto)
         {
             try
@@ -96,7 +96,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja categorias 
-        [HttpPut("[action]/{IdCategoria}")]
+        [HttpPatch("[action]/{IdCategoria}")]
         public IActionResult DeleteCategoria(int IdCategoria)
         {
             try

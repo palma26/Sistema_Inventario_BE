@@ -67,7 +67,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para editar datos de productos 
-        [HttpPut("[action]")]
+        [HttpPatch("[action]")]
         public IActionResult UpdateProducto([FromBody] ProductoDto productoDto)
         {
             try
@@ -93,7 +93,7 @@ namespace Sistema_Inventario.Controllers
         }
 
         //Api para dar de baja productos
-        [HttpPut("[action]/{IdProducto}")]
+        [HttpPatch("[action]/{IdProducto}")]
         public IActionResult DeleteProductos(int IdProducto)
         {
             try

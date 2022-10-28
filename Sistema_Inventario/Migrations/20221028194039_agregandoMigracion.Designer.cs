@@ -12,8 +12,8 @@ using Sistema_Inventario.Context;
 namespace Sistema_Inventario.Migrations
 {
     [DbContext(typeof(InventarioDbContext))]
-    [Migration("20221021004201_MigracionUsuario")]
-    partial class MigracionUsuario
+    [Migration("20221028194039_agregandoMigracion")]
+    partial class agregandoMigracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,9 @@ namespace Sistema_Inventario.Migrations
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
@@ -123,6 +126,11 @@ namespace Sistema_Inventario.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.HasKey("Id");
 
@@ -413,9 +421,35 @@ namespace Sistema_Inventario.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Proveedor");
+                });
+
+            modelBuilder.Entity("Sistema_Inventario.Entidades.Rol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rol");
                 });
 
             modelBuilder.Entity("Sistema_Inventario.Entidades.Sucursal", b =>
@@ -441,6 +475,11 @@ namespace Sistema_Inventario.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -474,6 +513,8 @@ namespace Sistema_Inventario.Migrations
                         .HasColumnType("tinyint");
 
                     b.HasKey("User");
+
+                    b.HasIndex("IdRol");
 
                     b.ToTable("Usuario");
                 });
@@ -665,6 +706,17 @@ namespace Sistema_Inventario.Migrations
                         .IsRequired();
 
                     b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Sistema_Inventario.Entidades.Usuario", b =>
+                {
+                    b.HasOne("Sistema_Inventario.Entidades.Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Sistema_Inventario.Entidades.Venta", b =>

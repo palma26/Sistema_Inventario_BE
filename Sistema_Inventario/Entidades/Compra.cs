@@ -28,5 +28,9 @@ namespace Sistema_Inventario.Entidades
         public Bodega? Bodega { get; set; }
 
         public int Estado {get; set;}
+
+        public virtual ICollection<DetalleCompra> DetalleCompras { get; set; }      
+
+        
     }
 }

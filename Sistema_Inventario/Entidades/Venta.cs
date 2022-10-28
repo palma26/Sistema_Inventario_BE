@@ -28,5 +28,7 @@ namespace Sistema_Inventario.Entidades
         [ForeignKey("ClienteId")]
         public Cliente? Cliente { get; set; }
 
+
+        public ICollection<DetalleVenta> detalleVentas { get; set; }
     }
 }

@@ -8,23 +8,16 @@ namespace Sistema_Inventario.Entidades
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int SucursalId { get; set; }
-        [ForeignKey("SucursalId")]
-
-        [Required]
-        public int BodegaId { get; set; }
-        [ForeignKey("BodegaId")]
         
-
         [Required]
         public int ProductoId { get; set; }
         [ForeignKey("ProductoId")]
-        
-        public int? SucursalEntradaId { get; set; }
+
         public int? BodegaEntradaId { get; set; }
 
-        public Sucursal? Sucursal { get; set; }
-        public Bodega? Bodega { get; set; }
+        public int? BodegaSalidaId { get; set; }
+
+        public int Cantidad { get; set; }
+
     }
 }

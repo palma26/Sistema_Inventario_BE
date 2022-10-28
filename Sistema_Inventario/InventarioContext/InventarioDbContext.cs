@@ -27,5 +27,7 @@ namespace Sistema_Inventario.Context
         public DbSet<Ajuste> Ajuste { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Rol> Rol { get; set; } 
+
+        public DbSet<Traslado> Traslado { get; set; }   
     }
 }

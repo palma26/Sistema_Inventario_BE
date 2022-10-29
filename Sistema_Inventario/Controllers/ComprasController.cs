@@ -22,6 +22,25 @@ namespace Sistema_Inventario.Controllers
             mapper = _mapper;   
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetCompras()
+        {
+            try
+            {
+                var compras = Icompra.GetCompras();
+
+                return Ok(compras);
+
+            }catch(Exception e)
+            {
+                responseMessage.CodigoResult = "99";
+                responseMessage.Message = "Ha ocurrido un error al obtener compras";
+                responseMessage.ResultMessage = "Error interno " + e.Message;
+
+                return StatusCode(500, responseMessage);
+            }
+        }
+
 
         //Api para agregar compras
         [HttpPost("[action]")]

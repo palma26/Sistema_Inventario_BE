@@ -46,5 +46,44 @@ namespace Sistema_Inventario.Controllers
                 return StatusCode(500, responseMessage);
             }
         }
+
+        [HttpGet("[action]")]
+        public IActionResult NotasCredito()
+        {
+            try
+            {
+                var notasCredito = Iventa.GetNotasCreditos();
+
+                return Ok(notasCredito);
+
+            }catch(Exception e)
+            {
+                responseMessage.CodigoResult = "99";
+                responseMessage.Message = "Ha ocurrido un error al agregar la obtener notas credito";
+                responseMessage.ResultMessage = "Error interno " + e.Message;
+
+                return StatusCode(500, responseMessage);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult NotasDebito()
+        {
+            try
+            {
+                var notasDebito = Iventa.GetNotasDebitos();
+
+                return Ok(notasDebito);
+
+            }
+            catch (Exception e)
+            {
+                responseMessage.CodigoResult = "99";
+                responseMessage.Message = "Ha ocurrido un error al agregar la obtener notas credito";
+                responseMessage.ResultMessage = "Error interno " + e.Message;
+
+                return StatusCode(500, responseMessage);
+            }
+        }
     }
 }

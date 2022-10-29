@@ -1,6 +1,7 @@
 ﻿using Sistema_Inventario.Context;
 using Sistema_Inventario.Entidades;
 using Sistema_Inventario.Services.Interfaces;
+using System.Collections;
 
 namespace Sistema_Inventario.Services
 {
@@ -14,39 +15,47 @@ namespace Sistema_Inventario.Services
         }
         public bool AddVenta(Venta venta)
         {
+            venta.Fecha = DateTime.Now;
             venta.Estado = 1;
             db.Venta.Add(venta);
-
-            if (venta.TipoPago == 1)
-            {
-                NotaCredito notaCredito = new NotaCredito();
-
-                notaCredito.Observacion = venta.Descripcion;
-                notaCredito.Fecha = DateTime.Now;
-                notaCredito.Valor = venta.precio;
-                notaCredito.cantidad = venta.cantidad;
-                notaCredito.idProducto = venta.IdProducto;
-
-                db.NotaCredito.Add(notaCredito);
-
-                db.SaveChanges();
-
-            }else if(venta.TipoPago == 2)
-            {
-                NotaDebito notaDebito = new NotaDebito();
-                notaDebito.Observacion = venta.Descripcion;
-                notaDebito.Fecha = DateTime.Now;
-                notaDebito.Valor = venta.precio;
-                notaDebito.cantidad = venta.cantidad;
-                notaDebito.idProducto = venta.IdProducto;
-
-                db.NotaDebito.Add(notaDebito);
-                db.SaveChanges();
-            }
 
             return db.SaveChanges() > 0;
         }
 
-       
+        public ICollection GetNotasCreditos()
+        {
+            var notasCredito = (from N in db.Venta
+                                join p in db.Producto on N.IdProducto equals p.Id
+                                join c in db.Cliente on N.ClienteId equals c.Id
+                                where N.TipoPago ==1
+                                select new
+                                {
+                                    descripcion = N.Descripcion,
+                                    precio = N.precio,
+                                    cantidad = N.cantidad,
+                                    producto = p.Descripcion,
+                                    cliente = c.Nombre
+                                }).ToList();
+
+            return notasCredito;
+        }
+
+        public ICollection GetNotasDebitos()
+        {
+            var notasDebito = (from N in db.Venta
+                                join p in db.Producto on N.IdProducto equals p.Id
+                                join c in db.Cliente on N.ClienteId equals c.Id
+                                where N.TipoPago == 2
+                                select new
+                                {
+                                    descripcion = N.Descripcion,
+                                    precio = N.precio,
+                                    cantidad = N.cantidad,
+                                    producto = p.Descripcion,
+                                    cliente = c.Nombre
+                                }).ToList();
+
+            return notasDebito;
+        }
     }
 }

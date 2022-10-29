@@ -17,17 +17,12 @@ namespace Sistema_Inventario.Entidades
         public decimal precio { get; set; } 
         public int cantidad { get; set; }
         public int IdProducto { get; set; }
+        [ForeignKey("IdProducto")]
 
-        [Required, StringLength(50)]
         public int TipoPago { get; set; }
 
         public int Estado { get; set; }
 
-        public int SucursalId { get; set; }
-
-
-        [ForeignKey("SucursalId")]
-        public Sucursal? Sucursal { get; set; }
 
         public int ClienteId { get; set; }
         [ForeignKey("ClienteId")]

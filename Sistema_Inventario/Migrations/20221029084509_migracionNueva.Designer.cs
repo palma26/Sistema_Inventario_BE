@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema_Inventario.Context;
 
@@ -11,9 +12,10 @@ using Sistema_Inventario.Context;
 namespace Sistema_Inventario.Migrations
 {
     [DbContext(typeof(InventarioDbContext))]
-    partial class InventarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221029084509_migracionNueva")]
+    partial class migracionNueva
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,11 +148,6 @@ namespace Sistema_Inventario.Migrations
                     b.Property<int>("BodegaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
@@ -159,6 +156,11 @@ namespace Sistema_Inventario.Migrations
 
                     b.Property<int>("ProveedorId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -306,9 +308,6 @@ namespace Sistema_Inventario.Migrations
                     b.Property<int>("cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("idProducto")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("NotaCredito");
@@ -340,9 +339,6 @@ namespace Sistema_Inventario.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idProducto")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -549,32 +545,24 @@ namespace Sistema_Inventario.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdProducto")
-                        .HasColumnType("int");
-
                     b.Property<int>("SucursalId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TipoPago")
+                    b.Property<string>("TipoPago")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("precio")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

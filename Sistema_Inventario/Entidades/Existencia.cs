@@ -15,9 +15,5 @@ namespace Sistema_Inventario.Entidades
 
         public Producto? producto { get; set; }
 
-        public int BodegaId { get; set; }
-        [ForeignKey("BodegaId")]
-
-        public Bodega? bodega { get; set; }
     }
 }

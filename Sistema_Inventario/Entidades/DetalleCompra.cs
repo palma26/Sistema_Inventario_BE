@@ -14,11 +14,7 @@ namespace Sistema_Inventario.Entidades
         public decimal PrecioTotalCompra { get; set; }
 
         public int CompraId { get; set; }
-        [ForeignKey("CompraId")]
-        public Compra? Compra { get; set; }
 
         public int ProductoId { get; set; }
-        [ForeignKey("ProductoId")]
-        public Producto? Producto{ get; set; }
     }
 }

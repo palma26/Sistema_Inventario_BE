@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sistema_Inventario.Migrations
 {
-    public partial class agregandoMigracion : Migration
+    public partial class migracionNueva : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +40,23 @@ namespace Sistema_Inventario.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Compra",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Usuario = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProveedorId = table.Column<int>(type: "int", nullable: false),
+                    BodegaId = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Compra", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Empresa",
                 columns: table => new
                 {
@@ -54,6 +71,23 @@ namespace Sistema_Inventario.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Empresa", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotaCredito",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Observacion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    cantidad = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotaCredito", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,6 +121,22 @@ namespace Sistema_Inventario.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Traslado",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    BodegaEntradaId = table.Column<int>(type: "int", nullable: true),
+                    BodegaSalidaId = table.Column<int>(type: "int", nullable: true),
+                    Cantidad = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Traslado", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Producto",
                 columns: table => new
                 {
@@ -94,7 +144,7 @@ namespace Sistema_Inventario.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Codigo = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Cantidad = table.Column<int>(type: "int", nullable: true),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
                     Costo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: true),
@@ -120,6 +170,7 @@ namespace Sistema_Inventario.Migrations
                     Observacion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    cantidad = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -130,6 +181,28 @@ namespace Sistema_Inventario.Migrations
                         name: "FK_NotaDebito_Cliente_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DetalleCompra",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    PrecioTotalCompra = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CompraId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetalleCompra", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetalleCompra_Compra_CompraId",
+                        column: x => x.CompraId,
+                        principalTable: "Compra",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -176,6 +249,26 @@ namespace Sistema_Inventario.Migrations
                         name: "FK_Usuario_Rol_IdRol",
                         column: x => x.IdRol,
                         principalTable: "Rol",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Existencia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Existencia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Existencia_Producto_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Producto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -262,62 +355,6 @@ namespace Sistema_Inventario.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Compra",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Usuario = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProveedorId = table.Column<int>(type: "int", nullable: false),
-                    BodegaId = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Compra", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Compra_Bodega_BodegaId",
-                        column: x => x.BodegaId,
-                        principalTable: "Bodega",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Compra_Proveedor_ProveedorId",
-                        column: x => x.ProveedorId,
-                        principalTable: "Proveedor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Existencia",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
-                    ProductoId = table.Column<int>(type: "int", nullable: false),
-                    BodegaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Existencia", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Existencia_Bodega_BodegaId",
-                        column: x => x.BodegaId,
-                        principalTable: "Bodega",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Existencia_Producto_ProductoId",
-                        column: x => x.ProductoId,
-                        principalTable: "Producto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DetalleVenta",
                 columns: table => new
                 {
@@ -346,57 +383,6 @@ namespace Sistema_Inventario.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "NotaCredito",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Observacion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Estado = table.Column<int>(type: "int", nullable: false),
-                    VentaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NotaCredito", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NotaCredito_Venta_VentaId",
-                        column: x => x.VentaId,
-                        principalTable: "Venta",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DetalleCompra",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
-                    PrecioTotalCompra = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CompraId = table.Column<int>(type: "int", nullable: false),
-                    ProductoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DetalleCompra", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DetalleCompra_Compra_CompraId",
-                        column: x => x.CompraId,
-                        principalTable: "Compra",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DetalleCompra_Producto_ProductoId",
-                        column: x => x.ProductoId,
-                        principalTable: "Producto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Ajuste_BodegaId",
                 table: "Ajuste",
@@ -413,24 +399,9 @@ namespace Sistema_Inventario.Migrations
                 column: "SucursalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Compra_BodegaId",
-                table: "Compra",
-                column: "BodegaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Compra_ProveedorId",
-                table: "Compra",
-                column: "ProveedorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DetalleCompra_CompraId",
                 table: "DetalleCompra",
                 column: "CompraId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DetalleCompra_ProductoId",
-                table: "DetalleCompra",
-                column: "ProductoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetalleVenta_ProductoId",
@@ -443,19 +414,9 @@ namespace Sistema_Inventario.Migrations
                 column: "ProductoId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Existencia_BodegaId",
-                table: "Existencia",
-                column: "BodegaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Existencia_ProductoId",
                 table: "Existencia",
                 column: "ProductoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NotaCredito_VentaId",
-                table: "NotaCredito",
-                column: "VentaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NotaDebito_ClienteId",
@@ -509,34 +470,37 @@ namespace Sistema_Inventario.Migrations
                 name: "NotaDebito");
 
             migrationBuilder.DropTable(
+                name: "Proveedor");
+
+            migrationBuilder.DropTable(
+                name: "Traslado");
+
+            migrationBuilder.DropTable(
                 name: "Usuario");
-
-            migrationBuilder.DropTable(
-                name: "Compra");
-
-            migrationBuilder.DropTable(
-                name: "Producto");
-
-            migrationBuilder.DropTable(
-                name: "Venta");
-
-            migrationBuilder.DropTable(
-                name: "Rol");
 
             migrationBuilder.DropTable(
                 name: "Bodega");
 
             migrationBuilder.DropTable(
-                name: "Proveedor");
+                name: "Compra");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Venta");
+
+            migrationBuilder.DropTable(
+                name: "Producto");
+
+            migrationBuilder.DropTable(
+                name: "Rol");
 
             migrationBuilder.DropTable(
                 name: "Cliente");
 
             migrationBuilder.DropTable(
                 name: "Sucursal");
+
+            migrationBuilder.DropTable(
+                name: "Categoria");
 
             migrationBuilder.DropTable(
                 name: "Empresa");

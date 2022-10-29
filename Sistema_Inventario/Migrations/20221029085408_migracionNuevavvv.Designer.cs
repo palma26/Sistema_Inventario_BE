@@ -12,8 +12,8 @@ using Sistema_Inventario.Context;
 namespace Sistema_Inventario.Migrations
 {
     [DbContext(typeof(InventarioDbContext))]
-    [Migration("20221028211827_agregandoMigracion2")]
-    partial class agregandoMigracion2
+    [Migration("20221029085408_migracionNuevavvv")]
+    partial class migracionNuevavvv
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,10 +164,6 @@ namespace Sistema_Inventario.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BodegaId");
-
-                    b.HasIndex("ProveedorId");
-
                     b.ToTable("Compra");
                 });
 
@@ -194,8 +190,6 @@ namespace Sistema_Inventario.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompraId");
-
-                    b.HasIndex("ProductoId");
 
                     b.ToTable("DetalleCompra");
                 });
@@ -276,9 +270,6 @@ namespace Sistema_Inventario.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BodegaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
@@ -286,8 +277,6 @@ namespace Sistema_Inventario.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BodegaId");
 
                     b.HasIndex("ProductoId");
 
@@ -316,12 +305,13 @@ namespace Sistema_Inventario.Migrations
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("VentaId")
+                    b.Property<int>("cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idProducto")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("VentaId");
 
                     b.ToTable("NotaCredito");
                 });
@@ -351,6 +341,12 @@ namespace Sistema_Inventario.Migrations
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idProducto")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
@@ -366,7 +362,7 @@ namespace Sistema_Inventario.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("Cantidad")
+                    b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoriaId")
@@ -555,24 +551,32 @@ namespace Sistema_Inventario.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdProducto")
+                        .HasColumnType("int");
+
                     b.Property<int>("SucursalId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TipoPago")
-                        .IsRequired()
+                    b.Property<int>("TipoPago")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("int");
 
-                    b.Property<string>("Usuario")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("precio")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -613,42 +617,13 @@ namespace Sistema_Inventario.Migrations
                     b.Navigation("Sucursal");
                 });
 
-            modelBuilder.Entity("Sistema_Inventario.Entidades.Compra", b =>
-                {
-                    b.HasOne("Sistema_Inventario.Entidades.Bodega", "Bodega")
-                        .WithMany()
-                        .HasForeignKey("BodegaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sistema_Inventario.Entidades.Proveedor", "Proveedor")
-                        .WithMany()
-                        .HasForeignKey("ProveedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bodega");
-
-                    b.Navigation("Proveedor");
-                });
-
             modelBuilder.Entity("Sistema_Inventario.Entidades.DetalleCompra", b =>
                 {
-                    b.HasOne("Sistema_Inventario.Entidades.Compra", "Compra")
+                    b.HasOne("Sistema_Inventario.Entidades.Compra", null)
                         .WithMany("DetalleCompras")
                         .HasForeignKey("CompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Sistema_Inventario.Entidades.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Compra");
-
-                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("Sistema_Inventario.Entidades.DetalleVenta", b =>
@@ -672,32 +647,13 @@ namespace Sistema_Inventario.Migrations
 
             modelBuilder.Entity("Sistema_Inventario.Entidades.Existencia", b =>
                 {
-                    b.HasOne("Sistema_Inventario.Entidades.Bodega", "bodega")
-                        .WithMany()
-                        .HasForeignKey("BodegaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Sistema_Inventario.Entidades.Producto", "producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("bodega");
-
                     b.Navigation("producto");
-                });
-
-            modelBuilder.Entity("Sistema_Inventario.Entidades.NotaCredito", b =>
-                {
-                    b.HasOne("Sistema_Inventario.Entidades.Venta", "Venta")
-                        .WithMany()
-                        .HasForeignKey("VentaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Venta");
                 });
 
             modelBuilder.Entity("Sistema_Inventario.Entidades.NotaDebito", b =>

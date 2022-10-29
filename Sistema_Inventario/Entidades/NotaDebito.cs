@@ -13,6 +13,8 @@ namespace Sistema_Inventario.Entidades
 
         public DateTime Fecha { get; set; }
         public decimal Valor { get; set; }
+        public int cantidad { get; set; }
+        public int idProducto { get; set; }
         public int Estado { get; set; }
         public int ClienteId { get; set; }
         [ForeignKey("ClienteId")]

@@ -12,14 +12,19 @@ namespace Sistema_Inventario.Entidades
         public DateTime Fecha { get; set; }
 
         [Required, StringLength(50)]
-        public string? Usuario { get; set; }
+        public string? Descripcion { get; set; }
+
+        public decimal precio { get; set; } 
+        public int cantidad { get; set; }
+        public int IdProducto { get; set; }
 
         [Required, StringLength(50)]
-        public string? TipoPago { get; set; }
+        public int TipoPago { get; set; }
 
         public int Estado { get; set; }
 
         public int SucursalId { get; set; }
+
 
         [ForeignKey("SucursalId")]
         public Sucursal? Sucursal { get; set; }

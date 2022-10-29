@@ -10,13 +10,11 @@ namespace Sistema_Inventario.Entidades
 
         [Required, StringLength(50)]
         public string? Observacion { get; set; }
-
+        public int idProducto { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Valor { get; set; }
+        public int cantidad { get; set; }
         public int Estado { get; set; }
-        public int VentaId { get; set; }
-        [ForeignKey("VentaId")]
 
-        public Venta? Venta { get; set; }
     }
 }

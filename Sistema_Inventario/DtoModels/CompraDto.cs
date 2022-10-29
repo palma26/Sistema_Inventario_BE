@@ -9,15 +9,12 @@ namespace Sistema_Inventario.DtoModels
 
         [Required]
         [StringLength(30)]
-        public string? Usuario { get; set; }
+        public string? Descripcion { get; set; }
 
-        [Required]
-        public DateTime Fecha { get; set; }
         
         [Required]
         public int ProveedorId { get; set; }
 
         public int BodegaId { get; set; }
-        public  List<DetalleCompraDto> DetalleCompras { get; set; } 
     }
 }

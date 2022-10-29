@@ -17,17 +17,6 @@ namespace Sistema_Inventario.Services
             compra.Fecha = DateTime.Now;
             db.Compra.Add(compra);
 
-
-            foreach (DetalleCompra item in compra.DetalleCompras)
-            {
-
-                Existencia existencia = (from e in db.Existencia where e.ProductoId == item.ProductoId && e.BodegaId == compra.BodegaId select e).First();
-
-                existencia.Cantidad += item.Cantidad;
-                db.Existencia.Update(existencia);
-            }
-
-
             return db.SaveChanges() > 0;
         }
     }

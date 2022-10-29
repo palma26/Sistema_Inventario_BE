@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<InventarioDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("Conexion")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("Develop")));
 
 builder.Services.AddScoped<IEmpresa, EmpresaService>();
 builder.Services.AddScoped<ISucursal, SucursalService>();
@@ -22,6 +22,8 @@ builder.Services.AddScoped<IProducto, ProductoService>();
 builder.Services.AddScoped<ICliente, ClienteService>();
 builder.Services.AddScoped<IProveedor, ProveedorService>();
 builder.Services.AddScoped<IAjuste, AjusteService>();
+builder.Services.AddScoped<ICompra, CompraService>();
+builder.Services.AddScoped<IVenta, VentaService>();
 
 builder.Services.AddAutoMapper(typeof(InventarioMapper));
 

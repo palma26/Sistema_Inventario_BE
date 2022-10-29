@@ -14,21 +14,9 @@ namespace Sistema_Inventario.Services
         }
         public bool AddProducto(Producto producto)
         {
-           
 
-            List<Bodega> bodegas = (from d in db.Bodega select d).ToList();  
-            foreach (Bodega item in bodegas)
-            {
-                Existencia existencia = new Existencia();
-
-                existencia.Cantidad = 0;
-                existencia.ProductoId = producto.Id;
-                existencia.BodegaId = item.Id;
-
-                db.Existencia.Add(existencia);
-            }
-
-           db.Producto.Add(producto);
+            producto.Estado = 1;
+            db.Producto.Add(producto);
 
             return db.SaveChanges() > 0;
         }

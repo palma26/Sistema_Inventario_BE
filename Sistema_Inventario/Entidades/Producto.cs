@@ -16,7 +16,7 @@ namespace Sistema_Inventario.Entidades
         [StringLength(50)]
         public string? Descripcion { get; set; }
 
-        public int? Cantidad { get; set; } 
+        public int Cantidad { get; set; } 
 
         [Required]
         public decimal? Costo { get; set; }

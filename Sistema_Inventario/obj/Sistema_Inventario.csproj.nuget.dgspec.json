@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\KEVIN PALMA\\PROYECTOS\\SISTEMA INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj": {}
+    "C:\\Users\\kevin\\OneDrive\\Escritorio\\INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj": {}
   },
   "projects": {
-    "D:\\KEVIN PALMA\\PROYECTOS\\SISTEMA INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj": {
+    "C:\\Users\\kevin\\OneDrive\\Escritorio\\INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\KEVIN PALMA\\PROYECTOS\\SISTEMA INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj",
+        "projectUniqueName": "C:\\Users\\kevin\\OneDrive\\Escritorio\\INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj",
         "projectName": "Sistema_Inventario",
-        "projectPath": "D:\\KEVIN PALMA\\PROYECTOS\\SISTEMA INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj",
+        "projectPath": "C:\\Users\\kevin\\OneDrive\\Escritorio\\INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\Sistema_Inventario.csproj",
         "packagesPath": "C:\\Users\\kevin\\.nuget\\packages\\",
-        "outputPath": "D:\\KEVIN PALMA\\PROYECTOS\\SISTEMA INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\obj\\",
+        "outputPath": "C:\\Users\\kevin\\OneDrive\\Escritorio\\INVENTARIO\\Sistema_Inventario_BE\\Sistema_Inventario\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\kevin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,7 +73,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -89,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

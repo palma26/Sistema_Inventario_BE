@@ -1,17 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sistema_Inventario.Entidades;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Sistema_Inventario.Entidades
+namespace Sistema_Inventario.DtoModels
 {
-    public class Usuario
+    public class UsuarioDto
     {
-        [Key]
-       public int id { get; set; }
         public string? User { get; set; }
-        [Required]
         public string? Nombre { get; set; }
         public string? Emial { get; set; }
         public string? password { get; set; }
-        public int Estado { get; set; }
+        public int IdRol { get; set; }
+        public Rol? Rol { get; set; }
     }
 }

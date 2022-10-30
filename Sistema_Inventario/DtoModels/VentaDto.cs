@@ -15,7 +15,7 @@ namespace Sistema_Inventario.DtoModels
         public int IdProducto { get; set; }
         public int clienteId { get; set; }
 
-        public int TipoPago { get; set; }
+        public string? TipoPago { get; set; }
 
 
     }

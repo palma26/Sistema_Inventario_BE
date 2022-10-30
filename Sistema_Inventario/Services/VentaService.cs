@@ -27,7 +27,7 @@ namespace Sistema_Inventario.Services
             var notasCredito = (from N in db.Venta
                                 join p in db.Producto on N.IdProducto equals p.Id
                                 join c in db.Cliente on N.ClienteId equals c.Id
-                                where N.TipoPago ==1
+                                where N.TipoPago == "credito"
                                 select new
                                 {
                                     descripcion = N.Descripcion,
@@ -45,7 +45,7 @@ namespace Sistema_Inventario.Services
             var notasDebito = (from N in db.Venta
                                 join p in db.Producto on N.IdProducto equals p.Id
                                 join c in db.Cliente on N.ClienteId equals c.Id
-                                where N.TipoPago == 2
+                                where N.TipoPago == "debito"
                                 select new
                                 {
                                     descripcion = N.Descripcion,

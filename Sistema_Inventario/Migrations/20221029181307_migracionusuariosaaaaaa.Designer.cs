@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema_Inventario.Context;
 
@@ -11,9 +12,10 @@ using Sistema_Inventario.Context;
 namespace Sistema_Inventario.Migrations
 {
     [DbContext(typeof(InventarioDbContext))]
-    partial class InventarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221029181307_migracionusuariosaaaaaa")]
+    partial class migracionusuariosaaaaaa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -521,6 +523,9 @@ namespace Sistema_Inventario.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdRol")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -532,6 +537,8 @@ namespace Sistema_Inventario.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("IdRol");
 
                     b.ToTable("Usuario");
                 });
@@ -677,6 +684,17 @@ namespace Sistema_Inventario.Migrations
                         .IsRequired();
 
                     b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Sistema_Inventario.Entidades.Usuario", b =>
+                {
+                    b.HasOne("Sistema_Inventario.Entidades.Rol", "Rol")
+                        .WithMany()
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Sistema_Inventario.Entidades.Venta", b =>

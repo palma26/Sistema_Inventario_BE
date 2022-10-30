@@ -19,7 +19,7 @@ namespace Sistema_Inventario.Entidades
         public int IdProducto { get; set; }
         [ForeignKey("IdProducto")]
 
-        public int TipoPago { get; set; }
+        public string? TipoPago { get; set; }
 
         public int Estado { get; set; }
 

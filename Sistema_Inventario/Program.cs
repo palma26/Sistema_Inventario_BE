@@ -24,6 +24,7 @@ builder.Services.AddScoped<IProveedor, ProveedorService>();
 builder.Services.AddScoped<IAjuste, AjusteService>();
 builder.Services.AddScoped<ICompra, CompraService>();
 builder.Services.AddScoped<IVenta, VentaService>();
+builder.Services.AddScoped<IUsuario, UsuarioService>();
 
 builder.Services.AddAutoMapper(typeof(InventarioMapper));
 
